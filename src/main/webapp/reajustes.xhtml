@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/_template.xhtml">
+
+	<ui:define name="titulo">Reajustes do funcionário</ui:define>
+
+	<ui:define name="principal">
+		<f:view transient="true">
+			<h1 class="text-center">Reajustes do funcionário</h1>
+			
+			<dl class="text-center row">
+				<div class="col-sm">
+					<dt>Nome</dt>
+					<dd>
+						<h:outputText value="#{reajusteBean.funcionario.nome}" />
+					</dd>
+				</div>
+				
+				<div class="col-sm">
+					<dt>Admissão</dt>
+					<dd>
+						<h:outputText value="#{reajusteBean.funcionario.dataDeAdmissao}" converter="LocalDateConverter" />
+					</dd>
+				</div>
+			
+				<div class="col-sm">
+					<dt>Cargo</dt>
+					<dd>
+						<h:outputText value="#{reajusteBean.funcionario.cargo.nome}" />
+					</dd>
+				</div>
+			
+				<div class="col-sm">
+					<dt>Salário</dt>
+					<dd>
+						<h:outputText value="#{reajusteBean.funcionario.salario}" converter="CustomBigDecimalConverter" />
+					</dd>
+				</div>
+			</dl>
+			
+			<form jsf:id="form-cadastro" jsf:prependId="false" method="post">
+				<div class="form-group">
+					<label for="motivo">Motivo</label>
+					<h:inputText id="motivo" pt:name="motivo" pt:class="form-control" pt:required="required" value="#{reajusteBean.reajuste.motivo}" />
+				</div>
+				
+				<div class="form-group">
+					<label for="valor">Valor</label>
+					<h:inputText id="valor" pt:name="valor" pt:class="form-control" pt:required="required" value="#{reajusteBean.reajuste.valor}" />
+				</div>
+				
+				<div class="form-group">
+					<label for="data">Data</label>
+					<h:inputText id="data" pt:name="data" pt:class="form-control" pt:required="required" value="#{reajusteBean.reajuste.data}" converter="LocalDateConverter" />
+				</div>
+				
+				<input jsf:action="#{reajusteBean.reajustar}" type="submit" value="Gravar" class="btn btn-primary" />
+				<h:inputHidden value="#{reajusteBean.idFuncionario}" />
+			</form>
+			
+			<div class="table-responsive mt-2">
+				<h:dataTable class="table table-stripped table-hover" value="#{reajusteBean.reajustes}" var="reajuste">
+					<h:column>
+						<f:facet name="header">ID</f:facet>
+						<h:outputText value="#{reajuste.id}" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">DATA</f:facet>
+						<h:outputText value="#{reajuste.data}" converter="LocalDateConverter" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">VALOR</f:facet>
+						<h:outputText value="#{reajuste.valor}" converter="CustomBigDecimalConverter" />
+					</h:column>
+					
+					<h:column>
+						<f:facet name="header">MOTIVO</f:facet>
+						<h:outputText value="#{reajuste.motivo}" />
+					</h:column>
+				</h:dataTable>
+			</div>
+		</f:view>
+	</ui:define>
+</ui:composition>

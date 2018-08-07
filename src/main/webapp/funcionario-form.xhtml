@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/_template.xhtml">
+
+	<ui:define name="titulo">Cadastro de Funcionário</ui:define>
+
+	<ui:define name="principal">
+		<f:view transient="true">
+			<h1 class="text-center">Cadastro de Funcionário</h1>
+			
+			<form jsf:id="form-cadastro" jsf:prependId="false" method="post">
+				<div class="form-group">
+					<label for="nome">Nome</label>
+					<h:inputText id="nome" pt:name="nome" pt:class="form-control" pt:required="required" value="#{funcionarioBean.funcionario.nome}" />
+				</div>
+				
+				<div class="form-group">
+					<label for="dataDeAdmissao">Data de Admissão</label>
+					<h:inputText id="dataDeAdmissao" pt:name="dataDeAdmissao" pt:class="form-control" pt:required="required" value="#{funcionarioBean.funcionario.dataDeAdmissao}" converter="LocalDateConverter" />
+				</div>
+				
+				<div class="form-group">
+					<label for="cargo">Cargo</label>
+					<h:selectOneMenu id="cargo" pt:name="cargo" pt:class="form-control" pt:required="required" value="#{funcionarioBean.funcionario.cargo.id}">
+						<f:selectItems value="#{cargoBean.cargos}" var="cargo" itemLabel="#{cargo.nome}" itemValue="#{cargo.id}" />
+					</h:selectOneMenu>
+				</div>
+				
+				<div class="form-group">
+					<label for="salario">Salário</label>
+					<h:inputText id="salario" pt:name="salario" pt:class="form-control" pt:required="required" value="#{funcionarioBean.funcionario.salario}" />
+				</div>
+				
+				<input jsf:action="#{funcionarioBean.salvar}" type="submit" value="Gravar" class="btn btn-primary" />
+				<a href="#{request.contextPath}/funcionarios.xhtml" class="btn btn-light">Cancelar</a>
+			</form>
+		</f:view>
+	</ui:define>
+</ui:composition>

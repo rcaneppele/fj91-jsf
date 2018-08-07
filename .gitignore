@@ -4,6 +4,7 @@ bin
 .classpath
 .project
 .settings
+.metadata
 *.jar
 *.class
 

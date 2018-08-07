@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/_template.xhtml">
+
+	<ui:define name="titulo">Cadastro de Cargo</ui:define>
+
+	<ui:define name="principal">
+		<f:view transient="true">
+			<h1 class="text-center">Cadastro de Cargo</h1>
+			
+			<form jsf:id="form-cadastro" jsf:prependId="false" method="post">
+				<div class="form-group">
+					<label for="nome">Nome</label>
+					<h:inputText id="nome" pt:name="nome" pt:class="form-control" pt:required="required" value="#{cargoBean.cargo.nome}" />
+				</div>
+				
+				<div class="form-group">
+					<label for="salarioMinimo">Salário Mínimo</label>
+					<h:inputText id="salarioMinimo" pt:name="salarioMinimo" pt:class="form-control" pt:required="required" value="#{cargoBean.cargo.salarioMinimo}" />
+				</div>
+				
+				<div class="form-group">
+					<label for="salarioMaximo">Salário Máximo</label>
+					<h:inputText id="salarioMaximo" pt:name="salarioMaximo" pt:class="form-control" pt:required="required" value="#{cargoBean.cargo.salarioMaximo}" />
+				</div>
+				
+				<input jsf:action="#{cargoBean.salvar}" type="submit" value="Gravar" class="btn btn-primary" />
+				<a href="#{request.contextPath}/cargos.xhtml" class="btn btn-light">Cancelar</a>
+			</form>
+		</f:view>
+	</ui:define>
+</ui:composition>
